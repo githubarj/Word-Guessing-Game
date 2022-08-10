@@ -1,6 +1,7 @@
 const inputs = document.querySelector(".inputs");
 const resetBtn = document.querySelector(".reset-btn");
 const hint = document.querySelector(".hint span");
+const guessLeft = document.querySelector(".guess-left span");
 const wrongLetter = document.querySelector(".wrong-letter span");
 const typingInput = document.querySelector(".typing-input");
 
@@ -13,6 +14,7 @@ const typingInput = document.querySelector(".typing-input");
 
 //making word a global variable to access it anywhere
 let word,
+  maxGuesses,
   corrects = [],
   incorrects = [];
 
@@ -24,8 +26,10 @@ resetBtn.addEventListener("click", () => {
   // let word = randObj.word;
   // using object destructuring since we are naming it the same as its key
   word = randObj.word;
+  maxGuesses = 8;
 
   hint.textContent = randObj.hint;
+  guessLeft.textContent = maxGuesses;
 
   console.log(word);
 
@@ -54,11 +58,12 @@ function initGame(e) {
         }
       }
     } else {
+      maxGuesses--; //decrement maxGuesses by 1
       incorrects.push(` ${key}`);
     }
+    guessLeft.textContent = maxGuesses;
+    wrongLetter.textContent = incorrects;
   }
-
-  wrongLetter.textContent = incorrects;
   //reseting the input tagwhen a key is pressed
   typingInput.value = "";
 }
