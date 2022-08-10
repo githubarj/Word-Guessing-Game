@@ -1,6 +1,7 @@
 const inputs = document.querySelector(".inputs");
 const resetBtn = document.querySelector(".reset-btn");
 const hint = document.querySelector(".hint span");
+const wrongLetter = document.querySelector(".wrong-letter span");
 const typingInput = document.querySelector(".typing-input");
 
 // checking if we are on serverside on client side javascript
@@ -11,7 +12,9 @@ const typingInput = document.querySelector(".typing-input");
 // }
 
 //making word a global variable to access it anywhere
-let word;
+let word,
+  corrects = [],
+  incorrects = [];
 
 resetBtn.addEventListener("click", () => {
   // getting a random object from the wordlist
@@ -35,21 +38,28 @@ resetBtn.addEventListener("click", () => {
 function initGame(e) {
   let key = e.target.value;
   //lets validate user pressed key is alphabet, character or number
-  if (key.match(/^[A-Za-z]+$/)) {
+  if (
+    key.match(/^[A-Za-z]+$/) &&
+    !incorrects.includes(` ${key}`) &&
+    !corrects.includes(key)
+  ) {
     console.log(key);
     // lets check if the entered key is in the word
     if (word.includes(key)) {
       for (let i = 0; i < word.length; i++) {
         //showing matched letter in the input value
         if (word[i] === key) {
+          corrects.push(key);
           inputs.querySelectorAll("input")[i].value = key;
         }
       }
     } else {
-      console.log("letter not found");
+      incorrects.push(` ${key}`);
     }
   }
-  //reseting the input tagwhen a key is pressed 
+
+  wrongLetter.textContent = incorrects;
+  //reseting the input tagwhen a key is pressed
   typingInput.value = "";
 }
 
