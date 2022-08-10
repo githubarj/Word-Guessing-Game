@@ -1,5 +1,9 @@
 const inputs = document.querySelector(".inputs");
 const resetBtn = document.querySelector(".reset-btn");
+const hint = document.querySelector(".hint span");
+const typingInput = document.querySelector(".typing-input");
+
+
 
 
 // checking if we are on serverside on client side javascript
@@ -18,6 +22,8 @@ resetBtn.addEventListener("click", () => {
   // using object destructuring since we are naming it the same as its key
   let { word } = randObj;
 
+  hint.textContent = randObj.hint
+
   console.log(word);
 
   inputs.innerHTML = ``
@@ -26,4 +32,6 @@ resetBtn.addEventListener("click", () => {
   }
    
 })
+
+document.addEventListener("keydown", () => typingInput.focus)
 
