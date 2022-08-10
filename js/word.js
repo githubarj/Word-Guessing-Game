@@ -1,4 +1,4 @@
-// storing word details as an object
+// storing word details as an array of objects
 // later fin a way to add words and their hints
 
 let wordList = [
@@ -199,3 +199,9 @@ let wordList = [
     hint: "related to a water",
   },
 ];
+
+// if (typeof window !== "undefined") {
+//   console.log("You are on the browser");
+// } else {
+//   console.log("You are on the server");
+// }
