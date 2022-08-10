@@ -26,12 +26,14 @@ resetBtn.addEventListener("click", () => {
   // let word = randObj.word;
   // using object destructuring since we are naming it the same as its key
   word = randObj.word;
+  //resseting
   maxGuesses = 8;
+  corrects = [];
+  incorrects = [];
 
   hint.textContent = randObj.hint;
   guessLeft.textContent = maxGuesses;
-
-  console.log(word);
+  wrongLetter.textContent = incorrects;
 
   inputs.innerHTML = ``;
   for (letter of word) {
@@ -47,7 +49,6 @@ function initGame(e) {
     !incorrects.includes(` ${key}`) &&
     !corrects.includes(key)
   ) {
-    console.log(key);
     // lets check if the entered key is in the word
     if (word.includes(key)) {
       for (let i = 0; i < word.length; i++) {
@@ -66,7 +67,24 @@ function initGame(e) {
   }
   //reseting the input tagwhen a key is pressed
   typingInput.value = "";
+
+  setTimeout(()=>{
+    // Game over
+    if (corrects.length === word.length) {
+      alert(`Congrats! You have found the word ${word.toUpperCase()}`);
+    } else if (maxGuesses < 1) {
+      // game over
+      alert("Game over! You do not have any remaining guesses");
+      for (let i = 0; i < word.length; i++) {
+        //showing all letters of the input
+        inputs.querySelectorAll("input")[i].value = word[i];
+      }
+    }
+  })
+ 
 }
 
 typingInput.addEventListener("input", initGame);
+inputs.addEventListener("click", () => typingInput.focus());
 document.addEventListener("keydown", () => typingInput.focus());
+
