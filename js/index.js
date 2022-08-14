@@ -13,12 +13,19 @@ const typingInput = document.querySelector(".typing-input");
 // }
 
 //making word a global variable to access it anywhere
+
+
 let word,
   maxGuesses,
   corrects = [],
   incorrects = [];
 
+
+  resetBtn.textContent = "Start Game"
+
+
 resetBtn.addEventListener("click", () => {
+  resetBtn.textContent = "Reset Game";
   // getting a random object from the wordlist
   let randObj = wordList[Math.floor(Math.random() * wordList.length)];
 
